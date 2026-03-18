@@ -1,32 +1,46 @@
 import math
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Função
+# --------------------------------------------------
+# QUESTÃO 1
+# Utilize o método da bisseção para determinar p,
+# para f(x) = sqrt(x) - cos(x) em [0,1]
+# --------------------------------------------------
+
 def f(x):
     return math.sqrt(x) - math.cos(x)
 
-# Método da bisseção
-def bissecao(f,a,b,tol=1e-6,max_iter=100):
-
-    if f(a)*f(b) > 0:
-        print("Não há raiz no intervalo")
-        return None
-
-    for i in range(max_iter):
-
+def bissecao(f,a,b,tol=1e-6):
+    
+    while (b-a)/2 > tol:
         p = (a+b)/2
-
-        if abs(f(p)) < tol or (b-a)/2 < tol:
-            return p
-
+        
         if f(a)*f(p) < 0:
             b = p
         else:
             a = p
+            
+    return (a+b)/2
 
-    return p
 
-
-# Resultado
+# Cálculo da raiz
 raiz = bissecao(f,0,1)
 
 print("Raiz aproximada:",raiz)
+
+
+# ---------------- GRÁFICO ----------------
+
+x = np.linspace(0,1,200)
+y = np.sqrt(x) - np.cos(x)
+
+plt.plot(x,y,label="f(x)")
+plt.axhline(0)
+plt.scatter(raiz,0)
+
+plt.legend()
+plt.grid()
+plt.title("Questão 1")
+
+plt.show()
