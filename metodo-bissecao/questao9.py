@@ -1,10 +1,14 @@
+# Questão 9
 import numpy as np
 import matplotlib.pyplot as plt
 
 def f(x):
     return np.exp(x) - 2 - np.cos(np.exp(x) - 2)
 
-def bisseccao(f, a, b, tol, max_iter):
+def bisseccao(f, a, b, tol=1e-5, max_iter=100):
+    if f(a)*f(b) >= 0:
+        raise ValueError("Intervalo inválido!")
+
     for i in range(max_iter):
         c = (a + b)/2
 
@@ -18,17 +22,23 @@ def bisseccao(f, a, b, tol, max_iter):
 
     return c, i+1
 
-raiz, it = bisseccao(f, 0.5, 1.5, 1e-5, 100)
+def main():
+    print("=== QUESTÃO 9 ===")
 
-print("Raiz:", raiz)
+    # (a)
+    print("\n(a) Gráfico:")
+    x = np.linspace(0,2,1000)
+    plt.plot(x, np.exp(x)-2, label="y = e^x - 2")
+    plt.plot(x, np.cos(np.exp(x)-2), label="y = cos(e^x - 2)")
+    plt.legend()
+    plt.grid()
+    plt.title("Questão 9 (a)")
+    plt.show()
 
-# gráfico
-x = np.linspace(0,2,1000)
-y1 = np.exp(x) - 2
-y2 = np.cos(np.exp(x) - 2)
+    # (b)
+    print("\n(b) Bissecção:")
+    raiz, it = bisseccao(f, 0.5, 1.5)
+    print("Raiz:", raiz)
 
-plt.plot(x, y1, label="y = e^x - 2")
-plt.plot(x, y2, label="y = cos(e^x - 2)")
-plt.legend()
-plt.grid()
-plt.show()
+if __name__ == "__main__":
+    main()
