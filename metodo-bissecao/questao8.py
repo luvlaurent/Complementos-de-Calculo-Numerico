@@ -1,10 +1,14 @@
+# Questão 8
 import numpy as np
 import matplotlib.pyplot as plt
 
 def f(x):
     return x - np.tan(x)
 
-def bisseccao(f, a, b, tol, max_iter):
+def bisseccao(f, a, b, tol=1e-5, max_iter=100):
+    if f(a)*f(b) >= 0:
+        raise ValueError("Intervalo inválido!")
+
     for i in range(max_iter):
         c = (a + b)/2
 
@@ -18,17 +22,25 @@ def bisseccao(f, a, b, tol, max_iter):
 
     return c, i+1
 
-# bissecção
-raiz, it = bisseccao(f, 4, 5, 1e-5, 100)
+def main():
+    print("=== QUESTÃO 8 ===")
 
-print("Raiz:", raiz)
-print("Iterações:", it)
+    # (a)
+    print("\n(a) Gráfico:")
+    x = np.linspace(-6,6,1000)
+    plt.plot(x, x, label="y = x")
+    plt.plot(x, np.tan(x), label="y = tan(x)")
+    plt.ylim(-10,10)
+    plt.legend()
+    plt.grid()
+    plt.title("Questão 8 (a)")
+    plt.show()
 
-# gráfico
-x = np.linspace(-6,6,1000)
-plt.plot(x, x, label="y = x")
-plt.plot(x, np.tan(x), label="y = tan(x)")
-plt.ylim(-10,10)
-plt.legend()
-plt.grid()
-plt.show()
+    # (b)
+    print("\n(b) Bissecção:")
+    raiz, it = bisseccao(f, 4, 5)
+    print("Raiz:", raiz)
+    print("Iterações:", it)
+
+if __name__ == "__main__":
+    main()
