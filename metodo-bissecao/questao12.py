@@ -22,7 +22,7 @@ def bisseccao(f, a, b, tol=1e-5, max_iter=100):
     return c
 
 def main():
-    print("QUESTÃO 12")
+    print("=== QUESTÃO 12 ===")
 
     print("\n(a)", bisseccao(f, -1.5, 2.5))
     print("(b)", bisseccao(f, -0.5, 2.4))
