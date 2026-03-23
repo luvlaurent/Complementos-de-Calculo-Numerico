@@ -1,44 +1,46 @@
+# Questão 8
 import numpy as np
 import matplotlib.pyplot as plt
 
-# função da equação
 def f(x):
     return x - np.tan(x)
 
-# método da bissecção
-def bisseccao(f, a, b, tol=1e-5):
-
+def bisseccao(f, a, b, tol=1e-5, max_iter=100):
     if f(a)*f(b) >= 0:
-        print("Intervalo inválido")
-        return None
+        raise ValueError("Intervalo inválido!")
 
-    while (b - a)/2 > tol:
-
+    for i in range(max_iter):
         c = (a + b)/2
 
-        if f(c) == 0:
-            return c
+        if abs(f(c)) < tol or (b - a)/2 < tol:
+            break
 
-        elif f(a)*f(c) < 0:
+        if f(a)*f(c) < 0:
             b = c
         else:
             a = c
 
-    return (a + b)/2
+    return c, i+1
 
-# intervalo
-raiz = bisseccao(f,4,5)
+def main():
+    print("=== QUESTÃO 8 ===")
 
-print("Raiz aproximada:",raiz)
+    # (a)
+    print("\n(a) Gráfico:")
+    x = np.linspace(-6,6,1000)
+    plt.plot(x, x, label="y = x")
+    plt.plot(x, np.tan(x), label="y = tan(x)")
+    plt.ylim(-10,10)
+    plt.legend()
+    plt.grid()
+    plt.title("Questão 8 (a)")
+    plt.show()
 
+    # (b)
+    print("\n(b) Bissecção:")
+    raiz, it = bisseccao(f, 4, 5)
+    print("Raiz:", raiz)
+    print("Iterações:", it)
 
-# gráfico
-x = np.linspace(-6,6,1000)
-
-plt.plot(x,x,label="y=x")
-plt.plot(x,np.tan(x),label="y=tan(x)")
-plt.ylim(-10,10)
-
-plt.legend()
-plt.grid()
-plt.show()
+if __name__ == "__main__":
+    main()
