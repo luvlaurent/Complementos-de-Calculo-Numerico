@@ -1,5 +1,3 @@
-# Questão 9
-
 import sympy as sp
 
 x = sp.Symbol('x')
@@ -24,6 +22,4 @@ while i < 4:
 
 coef = sp.expand(P).coeff(x,2)
 
-sol = sp.solve(coef - 6, y)
-
-print("y =", sol)
+print("y =", sp.solve(coef - 6, y))
