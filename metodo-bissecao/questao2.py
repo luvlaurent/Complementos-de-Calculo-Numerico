@@ -1,51 +1,22 @@
-import numpy as np
-import matplotlib.pyplot as plt
-
 # --------------------------------------------------
 # QUESTÃO 2
-# f(x) = 3(x+1)(x-1/2)(x-1)
-# Utilizar bisseção para obter p3 nos intervalos:
-# a) [-2,1.5]
-# b) [-1.25,2.5]
+# 4 iterações com controle
 # --------------------------------------------------
 
-def f(x):
-    return 3*(x+1)*(x-0.5)*(x-1)
+g1 = lambda x: (3 + x - 2*x**2)**(1/4)
+g2 = lambda x: ((x + 3 - x**4)/2)**0.5
+g3 = lambda x: ((x + 3)/(x**2 + 2))**0.5
+g4 = lambda x: (3*x**4 + 2*x**2 + 3)/(4*x**3 + 4*x - 1)
 
-def bissecao_iteracoes(f,a,b,n):
+funcoes = [g1,g2,g3,g4]
+max_iter = 4
+
+for i,g in enumerate(funcoes):
     
-    for i in range(n):
-        p = (a+b)/2
-        
-        print("Iteração",i+1,"p =",p)
-        
-        if f(a)*f(p) < 0:
-            b = p
-        else:
-            a = p
-            
-    return p
-
-
-# ---------------- Letra A ----------------
-print("Letra A:")
-raiz_a = bissecao_iteracoes(f,-2,1.5,3)
-
-# ---------------- Letra B ----------------
-print("\nLetra B:")
-raiz_b = bissecao_iteracoes(f,-1.25,2.5,3)
-
-
-# ---------------- GRÁFICO ----------------
-
-x = np.linspace(-3,3,400)
-y = f(x)
-
-plt.plot(x,y)
-plt.axhline(0)
-plt.scatter([raiz_a,raiz_b],[0,0])
-
-plt.title("Questão 2")
-plt.grid()
-
-plt.show()
+    print(f"\nFunção g{i+1}")
+    
+    p = 1
+    
+    for n in range(max_iter):
+        p = g(p)
+        print(f"p{n+1} =",p)
