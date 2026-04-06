@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# ===============================
+
 # FUNÇÕES BASE (NEWTON)
-# ===============================
+
 
 def diferencas_divididas(x, y):
     """
